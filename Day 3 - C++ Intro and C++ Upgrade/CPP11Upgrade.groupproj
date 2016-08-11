@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{F7988A73-792D-4D65-9D6A-299297C9B159}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="OldCode.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="NewCode.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="OldCode">
+        <MSBuild Projects="OldCode.cbproj"/>
+    </Target>
+    <Target Name="OldCode:Clean">
+        <MSBuild Projects="OldCode.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OldCode:Make">
+        <MSBuild Projects="OldCode.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="NewCode">
+        <MSBuild Projects="NewCode.cbproj"/>
+    </Target>
+    <Target Name="NewCode:Clean">
+        <MSBuild Projects="NewCode.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="NewCode:Make">
+        <MSBuild Projects="NewCode.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="OldCode;NewCode"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="OldCode:Clean;NewCode:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="OldCode:Make;NewCode:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
